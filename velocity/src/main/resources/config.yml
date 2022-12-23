@@ -1,0 +1,2 @@
+limit: 3
+kick-message: '<red>Too many connections from your IP'

@@ -1,0 +1,3 @@
+name: AddressLimit
+main: ru.violence.addresslimit.bungee.AddressLimitBungee
+version: ${project.version}
