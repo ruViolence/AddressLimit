@@ -7,8 +7,8 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import lombok.SneakyThrows;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.yaml.YAMLConfigurationLoader;
+import org.spongepowered.configurate.CommentedConfigurationNode;
+import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 import ru.violence.addresslimit.velocity.listener.LoginListener;
 
 import java.io.File;
@@ -32,10 +32,10 @@ public class AddressLimitVelocity {
     @Subscribe
     public void onProxyInit(ProxyInitializeEvent event) {
         extractDefaultConfig();
-        ConfigurationNode config = YAMLConfigurationLoader.builder().setFile(new File(dataFolder, "config.yml")).build().load();
+        CommentedConfigurationNode config = YamlConfigurationLoader.builder().file(new File(dataFolder, "config.yml")).build().load();
 
-        int limit = config.getNode("limit").getInt();
-        String kickMessage = config.getNode("kick-message").getString();
+        int limit = config.node("limit").getInt();
+        String kickMessage = config.node("kick-message").getString();
 
         proxy.getEventManager().register(this, new LoginListener(limit, kickMessage));
     }
